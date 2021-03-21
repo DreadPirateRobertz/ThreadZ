@@ -12,14 +12,13 @@ struct zipped_char {
 };
 
 struct threadInfo {
-        int n_threads;
+	int n_threads;
 	char *input_chars;
-	int size; 
+	int size;
 	struct zipped_char *zippy;
 	int *count;
 	int *frequency;
 };
-	
 
 /**
  * pzip() - zip an array of characters in parallel
@@ -41,7 +40,6 @@ void pzip(int n_threads, char *input_chars, int input_chars_size,
 	  struct zipped_char *zipped_chars, int *zipped_chars_count,
 	  int *char_frequency);
 
-void* callBack(void* arg);
-
+void *callBack(void *arg);
 
 #endif /* PZIP_H */
