@@ -76,11 +76,10 @@ void pzip(int n_threads, char *input_chars, int input_chars_size,
 	}
 	//Freeing resources
 	for (int i = 0; i < 26; i++){
-		pthread_mutex_destroy(flock[i]);
+		pthread_mutex_destroy(&fLock[i]);
 	}
 
 	free(returny);
-
 	pthread_barrier_destroy(&theWall);//TEAR DOWN THE WALL!!!
 }
 
@@ -91,9 +90,10 @@ void* callBack(void* arg){
 
 	int start = tid * allotment; //Where should each thread start is accounted for by this logic
 	int index = 0; 
-	int length = allotment + start;		// Add Comment
+	int length = allotment + start;		
 	int charCount = 1;//Set to one because if this logic triggers then one repeat has already occurred 
-	struct zipped_char *local = malloc(sizeof(struct zipped_char) * allotment); //Make a local struct that will store its specific chars he
+	struct zipped_char *local = malloc(sizeof(struct zipped_char) * allotment); //Make a local struct that will store its specific chars
+
 	struct zipped_char zippity;
 
 	for ( int i = start; i < length; i++ ){//Checking to see if any 2 characters are the sa:me
