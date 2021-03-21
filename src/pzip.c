@@ -128,9 +128,9 @@ void* callBack(void* arg){
 //printf("This is thread: %ld  This is local at character 4:%c\n", tid, local[4].character);
 //printf("This is thread: %ld  This is local at character 5:%c\n", tid, local[5].character);
 	pthread_barrier_wait(&theWall);
-	pthread_mutex_lock(&fLock[0]);
+//	pthread_mutex_lock(&fLock[0]);
 	*theMeat->count += index; 
-	pthread_mutex_unlock(&fLock[0]);
+//	pthread_mutex_unlock(&fLock[0]);
 	int spacer = 0; //Have to know where to store local results into the zipped_chars
 	for ( int i = 0; i < tid; i++) {
 		spacer += returny[i];
