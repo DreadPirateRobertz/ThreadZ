@@ -94,7 +94,12 @@ void* callBack(void* arg){
 	int length = allotment + start;		// Add Comment
 	int charCount = 1;//Set to one because if this logic triggers then one repeat has already occurred 
 	struct zipped_char *local = malloc(sizeof(struct zipped_char) * allotment); //Make a local struct that will store its specific chars here
+<<<<<<< HEAD
 	
+=======
+	struct zipped_char zippity = NULL; 
+
+>>>>>>> 981780cf263951654d999a87aaee4c8ab0a80c49
 	for ( int i = start; i < length; i++ ){//Checking to see if any 2 characters are the same
                 char currChar = master->input_chars[i];
                 char nextChar = master->input_chars[i+1];
@@ -103,6 +108,7 @@ void* callBack(void* arg){
 			charCount++;
 		}
 	       else{//Update local zipped_char struct once above logic has completed
+<<<<<<< HEAD
 			struct zipped_char zippity = { master->input_chars[i], charCount };
 			//Insert into local
 			local[index] = zippity; 
@@ -110,6 +116,15 @@ void* callBack(void* arg){
 			pthread_mutex_lock(&fLock[local[index].character - 97]); //Locking down for each character
 			master->frequency[local[index].character - 97] += charCount;//CRITICAL SECTION
 			pthread_mutex_unlock(&fLock[local[index].character - 97]);
+=======
+			 zippity = { master->input_chars[i], charCount };
+			//Insert into local
+			local[index] = zippity; 
+		
+			pthread_mutex_lock(&fLock[local[index].character - 97]);
+			master->frequency[local[index].character - 97] += charCount;//CRITICAL SECTION
+			pthread_mutex_unlock(&fLock[local[index].character- 97]);
+>>>>>>> 981780cf263951654d999a87aaee4c8ab0a80c49
 
 			index++;
 			charCount = 1; //Reset			
@@ -120,7 +135,11 @@ void* callBack(void* arg){
 
 	returny[tid] = index;
 
+<<<<<<< HEAD
 //	pthread_barrier_wait(&theWall);
+=======
+	pthread_barrier_wait(&theWall);
+>>>>>>> 981780cf263951654d999a87aaee4c8ab0a80c49
 	*master->count += index; 
 	int spacer = 0; //Have to know where to store local results into the zipped_chars
 	for ( int i = 0; i < tid; i++) {
@@ -129,7 +148,10 @@ void* callBack(void* arg){
 	for ( int i = 0; i < index; i++){ //Insert the local into the global struct
 		master->zippy[i+spacer] = local[i];
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 981780cf263951654d999a87aaee4c8ab0a80c49
 	free(local);//Free it!
 	pthread_exit(NULL); //Main waits
 }
