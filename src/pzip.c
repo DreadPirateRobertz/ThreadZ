@@ -94,18 +94,18 @@ void* callBack(void* arg){
 	int length = allotment + start;		// Add Comment
 	int charCount = 1;//Set to one because if this logic triggers then one repeat has already occurred 
 	struct zipped_char *local = malloc(sizeof(struct zipped_char) * allotment); //Make a local struct that will store its specific chars he
-	struct zipped_char zippity = NULL; 
+	struct zipped_char zippity;
 
-	for ( int i = start; i < length; i++ ){//Checking to see if any 2 characters are the same
+	for ( int i = start; i < length; i++ ){//Checking to see if any 2 characters are the sa:me
                 char currChar = master->input_chars[i];
                 char nextChar = master->input_chars[i+1];
 
-		if ( currChar==nextChar && (i < length)-1 ){
+		if ( currChar==nextChar && (i < length-1) ){
 			charCount++;
 		}
-	       else{//Update local zipped_char struct once above logic has complete
-
-		         zippity = { master->input_chars[i], charCount };
+	       else{//Update local zipped_char struct once above logic has completed
+			 zippity.character = master->input_chars[i];
+			 zippity.occurence =  charCount;
 			//Insert into local
 			local[index] = zippity; 
 		
@@ -123,10 +123,10 @@ void* callBack(void* arg){
 
 	returny[tid] = index;
 
-//	pthread_barrier_wait(&theWall);
 	pthread_barrier_wait(&theWall);
 	*master->count += index; 
 	int spacer = 0; //Have to know where to store local results into the zipped_chars
+
 	for ( int i = 0; i < tid; i++) {
 		spacer += returny[i];
 	}
